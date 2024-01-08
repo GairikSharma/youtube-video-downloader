@@ -17,9 +17,7 @@ app.get("/download", async (req, res) => {
       url: "https://www.youtube.com/embed/" + id,
       info: metaInfo.formats,
     };
-    console.log("Sending response:", video);
     res.send(video);
-    console.log(video);
   } catch (error) {
     console.log(error);
   }

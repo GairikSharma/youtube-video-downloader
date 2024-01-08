@@ -22,7 +22,7 @@ function App() {
   const handleDownload = async () => {
     try {
       const response = await axios.get<{ info: VideoInfo[] }>(
-        `http://localhost:3000/download?url=${url}`
+        `https://yt-video-downloader-v1-0-0.onrender.com/download?url=${url}`
       );
 
       if (response.data && response.data.info) {
