@@ -25,7 +25,7 @@ function App() {
     try {
       setLoading(true);
       const response = await axios.get<{ info: VideoInfo[] }>(
-        `https://yt-video-downloader-v1-0-0.onrender.com/download?url=${url}`
+        `https://youtube-video-downloader-api-v2.vercel.app/download?url=${url}`
       );
 
       if (response.data && response.data.info) {
