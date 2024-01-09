@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import loader from "../public/loader.svg"
 
 interface VideoInfo {
   url: string;
@@ -14,6 +15,7 @@ function App() {
   const [currentVideoIndex, setCurrentVideoIndex] = useState<number | null>(
     null
   );
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
@@ -21,6 +23,7 @@ function App() {
 
   const handleDownload = async () => {
     try {
+      setLoading(true);
       const response = await axios.get<{ info: VideoInfo[] }>(
         `https://yt-video-downloader-v1-0-0.onrender.com/download?url=${url}`
       );
@@ -45,8 +48,9 @@ function App() {
       }
     } catch (error) {
       console.log(error);
-
       setVideoInfo(null);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,14 +76,14 @@ function App() {
               type="text"
               value={url}
               onChange={handleInputChange}
-              className="mt-1 p-2 border border-violet-600 rounded-md w-full"
+              className="mt-1 p-2 border border-violet-600 rounded-md w-full focus:outline-none"
             />
             <button
+              disabled={loading}
               onClick={handleDownload}
-              className="mt-4 p-2 bg-violet-500 text-white rounded-md focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+              className="mt-4 p-2 bg-violet-500 text-white rounded-md focus:outline-none focus:shadow-outline-blue"
             >
-              Download
-              
+              {loading ? "Loading..." : "Download"}
             </button>
           </div>
           {/* <img className="fixed right-0 bottom-10" src={yt} alt="yt gif" /> */}
