@@ -1,6 +1,7 @@
 const express = require("express");
 const ytdl = require("ytdl-core");
 const cors = require("cors");
+const snapsave = require("snapsave-downloader-itj");
 
 const app = express();
 app.use(cors());
@@ -24,6 +25,14 @@ app.get("/download", async (req, res) => {
   }
 });
 
+app.get("/insta-reel-download", async (req, res) => {
+  try {
+    let URL = await snapsave("https://www.instagram.com/tv/CdmYaq3LAYo/");
+    console.log(URL);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 app.listen(3000, () => {
   console.log("App is listning on 3000");

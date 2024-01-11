@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import loader from "../public/loader.svg"
+import Tab from "./components/Tab";
 
 interface VideoInfo {
   url: string;
@@ -57,6 +57,7 @@ function App() {
   return (
     <>
       <Navbar />
+      <Tab />
       <div className="h-full mt-10 flex-grow flex flex-col items-center justify-center">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 dark:text-slate-700 mb-6 px-4 text-center">
           YouTube Video Downloader
