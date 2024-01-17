@@ -1,14 +1,17 @@
 const express = require("express");
 const ytdl = require("ytdl-core");
 const cors = require("cors");
-const snapsave = require("snapsave-downloader-itj");
+const instagramDl = require("@sasmeee/igdl");
 
 const app = express();
 app.use(cors());
+app.use(express.json())
+
 app.get("/favicon.ico", (req, res) => res.status(204));
 app.get("/", (req, res) => {
   res.send("Hello from server");
 });
+
 //youtube videos
 app.get("/download", async (req, res) => {
   try {
@@ -25,14 +28,24 @@ app.get("/download", async (req, res) => {
   }
 });
 
+//Insta reels
 app.get("/insta-reel-download", async (req, res) => {
   try {
-    let URL = await snapsave("https://www.instagram.com/tv/CdmYaq3LAYo/");
-    console.log(URL);
+    const url = req.query.url;
+
+    if (!url) {
+      throw new Error("URL is required");
+    }
+
+    const dataList = await instagramDl(url);
+    res.json({ message: "Success", data: dataList });
   } catch (error) {
-    console.log(error);
+    console.error("Error occurred", error);
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 });
+
+
 
 app.listen(3000, () => {
   console.log("App is listning on 3000");

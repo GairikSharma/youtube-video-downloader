@@ -4,13 +4,13 @@ import { FaGoogle } from "react-icons/fa";
 
 function Footer() {
   return (
-    <div className="fixed bottom-0 w-full flex flex-col md:flex-row justify-around items-center bg-violet-600 text-white p-4 md:p-8">
-      <div className="flex flex-row justify-center items-center space-x-4 mb-4 md:mb-0">
+    <div className="absolute bottom-0 w-full flex flex-col md:flex-row justify-around items-center bg-slate-500 text-white p-4 md:p-8">
+      <div className="flex flex-row justify-center items-center space-x-2 mb-4 md:mb-0">
         <FaMeta />
         <CiInstagram />
         <FaGoogle />
       </div>
-      <nav className="flex justify-center space-x-4">
+      <nav className="flex justify-center space-x-2">
         <div className="hover:underline">
           About
         </div>
