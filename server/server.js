@@ -5,7 +5,9 @@ const instagramDl = require("@sasmeee/igdl");
 
 const app = express();
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
+
+const PORT = process.env.PORT
 
 app.get("/favicon.ico", (req, res) => res.status(204));
 app.get("/", (req, res) => {
@@ -15,6 +17,7 @@ app.get("/", (req, res) => {
 //youtube videos
 app.get("/download", async (req, res) => {
   try {
+    res.send('Yt video downloader...')
     const url = req.query.url;
     const id = await ytdl.getURLVideoID(url);
     const metaInfo = await ytdl.getInfo(url);
@@ -32,7 +35,7 @@ app.get("/download", async (req, res) => {
 app.get("/insta-reel-download", async (req, res) => {
   try {
     const url = req.query.url;
-
+    res.send("insta reel downloader...");
     if (!url) {
       throw new Error("URL is required");
     }
@@ -41,12 +44,12 @@ app.get("/insta-reel-download", async (req, res) => {
     res.json({ message: "Success", data: dataList });
   } catch (error) {
     console.error("Error occurred", error);
-    res.status(500).json({ message: "Internal Server Error", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
   }
 });
 
-
-
-app.listen(3000, () => {
-  console.log("App is listning on 3000");
+app.listen(PORT, () => {
+  console.log(`App is listning on ${PORT}`);
 });
